@@ -12,16 +12,15 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('solicitudes', function (Blueprint $table) {
-            $table->integer("id_sol", true, true);
-            $table->string('dni_emp', 9);
-            $table->foreign('dni_emp')->references('dni_emp')->on('empleados');
-            $table->dateTime('fecha_hora_sol');
+            $table->id();
+            $table->unsignedBigInteger('empleado');
+            $table->foreign('empleado')->references('id')->on('empleados');
+            $table->dateTime('fecha_hora');
             $table->dateTime('fecha_hora_inicio');
             $table->dateTime('fecha_hora_fin');
-            $table->enum("tipo_sol", ["ASUNTOS_PROPIOS", "VACACIONES", "HORAS_COMPENSATORIAS"]);
-            $table->enum("estado_sol", ["EN_ESPERA", "ACEPTADA", "RECHAZADA"]);
+            $table->enum("tipo", ["ASUNTOS_PROPIOS", "VACACIONES", "HORAS_COMPENSATORIAS"]);
+            $table->enum("estado", ["EN_ESPERA", "ACEPTADA", "RECHAZADA"]);
             $table->timestamps();
-            $table->primary(array('dni_emp', 'id_sol'));
         });
     }
 

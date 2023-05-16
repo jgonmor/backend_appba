@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\EmpleadoController;
+use App\Http\Controllers\MarcajeController;
+use App\Http\Controllers\DepartamentosController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -17,5 +20,23 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::get('/empleados', [EmpleadoController::class, 'index']);
+Route::post('/empleados', [EmpleadoController::class, 'store']);
+Route::get('/empleados/{empleado}', [EmpleadoController::class, 'show']);
+Route::put('/empleados/{empleado}', [EmpleadoController::class, 'update']);
+Route::delete('/empleados/{empleado}', [EmpleadoController::class, 'destroy']);
+
+Route::get('/marcaje', [MarcajeController::class, 'index']);
+Route::post('/marcaje', [MarcajeController::class, 'store']);
+Route::get('/marcaje/{marcaje}', [MarcajeController::class, 'show']);
+Route::put('/marcaje/{marcaje}', [MarcajeController::class, 'update']);
+Route::delete('/marcaje/{marcaje}', [MarcajeController::class, 'destroy']);
+
+Route::get('/departamento', [DepartamentosController::class, 'index']);
+Route::post('/departamento', [DepartamentosController::class, 'store']);
+Route::get('/departamento/{departamento}', [DepartamentosController::class, 'show']);
+Route::put('/departamento/{departamento}', [DepartamentosController::class, 'update']);
+Route::delete('/departamento/{departamento}', [DepartamentosController::class, 'destroy']);
 
 

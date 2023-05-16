@@ -12,12 +12,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('marcajes', function (Blueprint $table) {
-            $table->id("id_marc");
-            $table->dateTime('fecha_hora_marc');
-            $table->enum("tipo_marc", ["ENTRADA", "SALIDA"]);
-            $table->string('dni_emp', 9);
-            $table->bigInteger('id_emp');
-            // $table->foreign('dni_emp')->references('dni_emp')->on('empleados');
+            $table->id("id");
+            $table->dateTime('fecha_hora');
+            $table->enum("tipo", ["ENTRADA", "SALIDA"]);
+            $table->unsignedBigInteger('empleado');
+            $table->foreign('empleado')->references('id')->on('empleados');
             $table->timestamps();
         });
     }

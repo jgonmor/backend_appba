@@ -13,14 +13,13 @@ class Nomina extends Model
 
     protected $fillable = [
         'fecha_nom',
+        'dni_emp',
         "created_at", 
         "updated_at", 
         "deleted_at"
     ];
 
-    public function dni_emp(){
-        return $this->belongsTo("app/Models/Empleado");
-    }
 
     protected $dates = ["created_at", "updated_at", "deleted_at"];
+   
 }

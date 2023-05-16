@@ -14,13 +14,13 @@ return new class extends Migration
         Schema::create('empleados', function (Blueprint $table) {
             $table->softDeletes();
             $table->id();
-            $table->string('dni_emp', 9)->unique();
-            $table->date('fecha_inicio_emp');
-            $table->date('fecha_fin_emp')->nullable();
-            $table->string('nombre_emp');
-            $table->string('categoria_emp');
-            $table->bigInteger('id_dep');
-            $table->foreign('id_dep')->references('id_dep')->on('departamentos');
+            $table->string('dni', 9)->unique();
+            $table->date('fecha_inicio');
+            $table->date('fecha_fin')->nullable();
+            $table->string('nombre');
+            $table->string('categoria');
+            $table->unsignedBigInteger('departamento');
+            $table->foreign('departamento')->references('id')->on('departamentos');
             $table->timestamps();
         });
     }

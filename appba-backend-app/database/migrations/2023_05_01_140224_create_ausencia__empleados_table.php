@@ -12,8 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('ausencia__empleados', function (Blueprint $table) {
-            $table->string('dni_emp', 9)->primary();
-            $table->foreign('dni_emp')->references('dni_emp')->on('empleados');
+            $table->unsignedBigInteger('id')->primary();
+            $table->foreign('id')->references('id')->on('empleados');
             $table->integer('vacaciones_totales');
             $table->integer('asuntos_propios_totales');
             $table->integer('horas_compensatorias_totales');

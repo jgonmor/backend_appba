@@ -12,17 +12,17 @@ class Solicitud extends Model
     protected $table = "solicitudes";
 
     protected $fillable = [
-        'fecha_hora_sol',
-        'fecha_hora_inicio',
-        'fecha_hora_fin',
-        'tipo_sol',
-        'estado_sol',
+        'fecha_hora',
+        'fecha_hora',
+        'fecha_hora',
+        'tipo',
+        'estado',
         "created_at", 
         "updated_at", 
         "deleted_at"
     ];
 
-    public function dni_emp(){
+    public function empleado(){
         return $this->belongsTo("app/Models/Empleado");
     }
 

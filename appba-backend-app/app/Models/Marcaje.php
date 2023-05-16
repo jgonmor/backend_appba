@@ -12,15 +12,16 @@ class Marcaje extends Model
     protected $table = "marcajes";
 
     protected $fillable = [
-        'fecha_hora_marc',
-        'tipo_marc',
+        'fecha_hora',
+        'tipo',
+        'empleado',
         "created_at", 
         "updated_at", 
         "deleted_at"
     ];
 
-    public function dni_emp(){
-        return $this->belongsTo("app/Models/Empleado");
+    public function empleado(){
+        return $this->belongsTo("app/Models/Empleado", "empleado");
     }
 
     protected $dates = ["created_at", "updated_at", "deleted_at"];

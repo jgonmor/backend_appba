@@ -11,14 +11,19 @@ class Departamentos extends Model
     protected $table = "departamentos";
 
     protected $fillable = [
-        'nombre_dep',
+        'nombre',
+        'jefe',
         "created_at", 
         "updated_at", 
         "deleted_at"
     ];
 
-    public function dni_emp(){
-        return $this->belongsTo("app/Models/Empleado");
+    public function jefe(){
+        return $this->belongsTo("app/Models/Empleado", "jefe");
+    }
+
+    public function empleados(){
+        return $this->hasMany(Empleado::class);
     }
 
     protected $dates = ["created_at", "updated_at", "deleted_at"];

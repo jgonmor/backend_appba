@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('departamentos', function (Blueprint $table) {
             $table->softDeletes();
-            $table->id("id_dep");
-            $table->string('nombre_dep');
-            $table->string('dni_emp', 9)->nullable();
-            // $table->foreign('dni_emp')->references('dni_emp')->on('empleados');
+            $table->id("id");
+            $table->string('nombre');
+            $table->unsignedBigInteger('jefe')->nullable();
+            // $table->foreign('jefe')->references('id')->on('empleados');
             $table->timestamps();
             
         });

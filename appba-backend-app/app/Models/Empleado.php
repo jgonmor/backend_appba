@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -11,22 +12,19 @@ class Empleado extends Model
     protected $table = "empleados";
 
     protected $fillable = [
-        'dni_emp',
-        'fecha_inicio_emp',
-        'fecha_fin_emp',
-        'nombre_emp',
-        'categoria_emp',
+        'dni',
+        'fecha_inicio',
+        'fecha_fin',
+        'nombre',
+        'categoria',
         "created_at", 
         "updated_at", 
         "deleted_at"
     ];
 
-    public function getEmpleadosFromDepartamento(){
-        
-    }
 
-    public function departamento_emp(){
-        return $this->belongsTo("app/Models/Departamento");
+    public function departamento(){
+        return $this->belongsTo(Departamentos::class, "departamento");
     }
 
     public function marcajes(){
