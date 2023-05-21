@@ -33,10 +33,10 @@ Route::get('/marcaje/{marcaje}', [MarcajeController::class, 'show']);
 Route::put('/marcaje/{marcaje}', [MarcajeController::class, 'update']);
 Route::delete('/marcaje/{marcaje}', [MarcajeController::class, 'destroy']);
 
-Route::get('/departamento', [DepartamentosController::class, 'index']);
-Route::post('/departamento', [DepartamentosController::class, 'store']);
-Route::get('/departamento/{departamento}', [DepartamentosController::class, 'show']);
-Route::put('/departamento/{departamento}', [DepartamentosController::class, 'update']);
-Route::delete('/departamento/{departamento}', [DepartamentosController::class, 'destroy']);
+Route::get('/departamentos', [DepartamentosController::class, 'index']);
+Route::post('/departamentos', [DepartamentosController::class, 'store']);
+Route::get('/departamentos/{departamentos}', [DepartamentosController::class, 'show']);
+Route::put('/departamentos', [DepartamentosController::class, 'update']);
+Route::delete('/departamentos/{departamento}', [DepartamentosController::class, 'destroy']);
 
 

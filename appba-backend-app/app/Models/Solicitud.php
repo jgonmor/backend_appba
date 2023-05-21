@@ -16,7 +16,8 @@ class Solicitud extends Model
         'fecha_hora',
         'fecha_hora',
         'tipo',
-        'estado',
+        'estado_jefe',
+        'estado_rrhh',
         "created_at", 
         "updated_at", 
         "deleted_at"

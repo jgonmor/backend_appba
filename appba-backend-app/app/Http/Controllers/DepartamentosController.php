@@ -13,8 +13,12 @@ class DepartamentosController extends Controller
     public function index()
     {
         //
-        $departamentoss = Departamentos::all();
-        return response()->json($departamentoss);
+        $departamentos = Departamentos::with("jefe")->get();
+        $data = [
+            'message' => "Datos de los departamentos",
+            'departamentos' => $departamentos,
+        ];
+        return response()->json($data);
     }
 
     /**
@@ -52,7 +56,14 @@ class DepartamentosController extends Controller
      */
     public function show(Departamentos $departamentos)
     {
-        return response()->json($departamentos);
+        dd($departamentos);
+        $departamentos = $departamentos->with("empleados", "jefe")->where("id", $departamentos->id)->get();
+
+        $data = [
+            'message' => "Datos del departamento",
+            'departamento' => $departamentos,
+        ];
+        return response()->json($data);
     }
 
     /**
@@ -68,16 +79,19 @@ class DepartamentosController extends Controller
      */
     public function update(Request $request, Departamentos $departamentos)
     {
-        //
+
         $departamentos->nombre = $request->nombre;
         $departamentos->jefe = $request->jefe;
-    
 
-        $departamentos->save();
+        $result = Departamentos::where("id", $request->id)->first()->update($departamentos->toArray());
+
+        if ($result){
+            $result = Departamentos::find($request->id);
+        }
 
         $data = [
             'message' => "Departamento actualizado con exito",
-            'departamentos' => $departamentos,
+            'departamentos' => $result,
         ];
 
         return response()->json($data);

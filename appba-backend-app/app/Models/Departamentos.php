@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Departamentos extends Model
 {
@@ -18,12 +19,12 @@ class Departamentos extends Model
         "deleted_at"
     ];
 
-    public function jefe(){
-        return $this->belongsTo("app/Models/Empleado", "jefe");
+    public function jefe(): HasOne{
+        return $this->hasOne(Empleado::class, "departamento" ,"jefe");
     }
 
     public function empleados(){
-        return $this->hasMany(Empleado::class);
+        return $this->hasMany(Empleado::class, "departamento");
     }
 
     protected $dates = ["created_at", "updated_at", "deleted_at"];

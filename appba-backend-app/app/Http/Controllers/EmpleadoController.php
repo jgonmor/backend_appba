@@ -14,8 +14,12 @@ class EmpleadoController extends Controller
     public function index()
     {
         //
-        $empleados = Empleado::all();
-        return response()->json($empleados);
+        $empleados = Empleado::with("departamento")->get();
+        $data = [
+            'message' => "Todos los empleados",
+            'empleado' => $empleados,
+        ];
+        return response()->json($data);
     }
 
     /**
@@ -56,7 +60,16 @@ class EmpleadoController extends Controller
      */
     public function show(Empleado $empleado)
     {
-        return response()->json($empleado);
+        dd($empleado);
+        // $empleado->with("departamento");
+        // $empleado->departamento = Departamentos::find($empleado->departamento);
+        $empleado = $empleado->with("departamento")->get();
+
+        $data = [
+            'message' => "Detalles del empleado",
+            'empleado' => $empleado,
+        ];
+        return response()->json($data);
     }
 
     /**

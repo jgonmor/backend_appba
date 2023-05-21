@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Empleado extends Model
 {
@@ -17,6 +18,7 @@ class Empleado extends Model
         'fecha_fin',
         'nombre',
         'categoria',
+        "departamento",
         "created_at", 
         "updated_at", 
         "deleted_at"
@@ -25,6 +27,10 @@ class Empleado extends Model
 
     public function departamento(){
         return $this->belongsTo(Departamentos::class, "departamento");
+    }
+
+    public function user(): HasOne{
+        return $this->hasOne(User::class, "dni", "DNI");
     }
 
     public function marcajes(){
