@@ -50,14 +50,14 @@ BEGIN
 					SET MESSAGE_TEXT = "El jefe insertado no esta en el mismo departamento";
                 
 				else 
-					if new.nombre != null and new.nombre like "Recursos humanos" then
+					if new.nombre != null and new.nombre = "Recursos humanos" then
                 
 						UPDATE `users` set rol = "jefe Recursos humanos"  where users.id = new.jefe;
                         
                         UPDATE `users` set rol = "Recursos humanos"  where users.id = old.jefe;
                     
 					else 
-						if old.nombre like "Recursos humanos" then 
+						if old.nombre = "Recursos humanos" then 
                 
 							UPDATE `users` set rol = "jefe Recursos humanos"  where users.id = new.jefe;
                             

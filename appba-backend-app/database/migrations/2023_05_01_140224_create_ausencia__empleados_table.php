@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('ausencia__empleados', function (Blueprint $table) {
             $table->unsignedBigInteger('id')->primary();
-            $table->foreign('id')->references('id')->on('empleados');
+            // $table->foreign('id')->references('id')->on('empleados');
             $table->integer('vacaciones_totales');
             $table->integer('asuntos_propios_totales');
             $table->integer('horas_compensatorias_totales');

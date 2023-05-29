@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('solicitudes', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('empleado');
-            $table->foreign('empleado')->references('id')->on('empleados');
+            // $table->foreign('empleado')->references('id')->on('empleados');
             $table->dateTime('fecha_hora');
             $table->dateTime('fecha_hora_inicio');
             $table->dateTime('fecha_hora_fin');

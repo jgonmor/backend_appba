@@ -16,7 +16,7 @@ return new class extends Migration
             $table->id("id");
             $table->dateTime('fecha');
             $table->unsignedBigInteger('empleado');
-            $table->foreign('empleado')->references('id')->on('empleados');
+            // $table->foreign('empleado')->references('id')->on('empleados');
             $table->timestamps();
         });
     }

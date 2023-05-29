@@ -3,6 +3,7 @@
 use App\Http\Controllers\EmpleadoController;
 use App\Http\Controllers\MarcajeController;
 use App\Http\Controllers\DepartamentosController;
+use App\Http\Controllers\LocationsController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -38,5 +39,13 @@ Route::post('/departamentos', [DepartamentosController::class, 'store']);
 Route::get('/departamentos/{departamentos}', [DepartamentosController::class, 'show']);
 Route::put('/departamentos', [DepartamentosController::class, 'update']);
 Route::delete('/departamentos/{departamento}', [DepartamentosController::class, 'destroy']);
+
+
+Route::get('/locations', [LocationsController::class, 'index']);
+Route::post('/locations', [LocationsController::class, 'store']);
+Route::get('/locations/{location}', [LocationsController::class, 'show']);
+Route::get('/locations/byCategory/{category}', [LocationsController::class, 'byCategory']);
+Route::put('/locations', [LocationsController::class, 'update']);
+Route::delete('/locations/{locations}', [LocationsController::class, 'destroy']);
 
 

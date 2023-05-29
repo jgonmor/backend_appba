@@ -56,7 +56,7 @@ class DepartamentosController extends Controller
      */
     public function show(Departamentos $departamentos)
     {
-        dd($departamentos);
+        // dd($departamentos);
         $departamentos = $departamentos->with("empleados", "jefe")->where("id", $departamentos->id)->get();
 
         $data = [

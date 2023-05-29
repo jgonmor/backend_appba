@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('nombre');
             $table->string('categoria');
             $table->unsignedBigInteger('departamento');
-            $table->foreign('departamento')->references('id')->on('departamentos');
+            // $table->foreign('departamento')->references('id')->on('departamentos');
             $table->timestamps();
         });
     }

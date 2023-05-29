@@ -60,7 +60,7 @@ class EmpleadoController extends Controller
      */
     public function show(Empleado $empleado)
     {
-        dd($empleado);
+        // dd($empleado);
         // $empleado->with("departamento");
         // $empleado->departamento = Departamentos::find($empleado->departamento);
         $empleado = $empleado->with("departamento")->get();

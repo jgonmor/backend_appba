@@ -16,7 +16,7 @@ return new class extends Migration
             $table->dateTime('fecha_hora');
             $table->enum("tipo", ["ENTRADA", "SALIDA"]);
             $table->unsignedBigInteger('empleado');
-            $table->foreign('empleado')->references('id')->on('empleados');
+            // $table->foreign('empleado')->references('id')->on('empleados');
             $table->timestamps();
         });
     }
