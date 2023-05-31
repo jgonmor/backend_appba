@@ -19,6 +19,7 @@ class Empleado extends Model
         'nombre',
         'categoria',
         "departamento",
+        "rol",
         "created_at", 
         "updated_at", 
         "deleted_at"
