@@ -28,12 +28,16 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::get('/empleados', [EmpleadoController::class, 'index']);
 Route::post('/empleados', [EmpleadoController::class, 'store']);
 Route::get('/empleados/{empleado}', [EmpleadoController::class, 'show']);
+Route::get('/empleados/fromDepartamento/{departamento}', [EmpleadoController::class, 'getEmpleadoFromDepartamento']);
 Route::put('/empleados/{empleado}', [EmpleadoController::class, 'update']);
 Route::delete('/empleados/{empleado}', [EmpleadoController::class, 'destroy']);
 
 Route::get('/marcaje', [MarcajeController::class, 'index']);
-Route::post('/marcaje', [MarcajeController::class, 'store']);
+Route::post('/marcaje', [MarcajeController::class, 'create']);
 Route::get('/marcaje/{marcaje}', [MarcajeController::class, 'show']);
+Route::get('/marcaje/fromEmpleado/{empleado}', [MarcajeController::class, 'getMarcajesFromEmpleado']);
+Route::get('/marcaje/fromEmpleado/{empleado}/last', [MarcajeController::class, 'getLastMarcajeFromEmpleado']);
+Route::get('/marcaje/getHours/{empleado}', [MarcajeController::class, 'getHoursMonth']);
 Route::put('/marcaje/{marcaje}', [MarcajeController::class, 'update']);
 Route::delete('/marcaje/{marcaje}', [MarcajeController::class, 'destroy']);
 
