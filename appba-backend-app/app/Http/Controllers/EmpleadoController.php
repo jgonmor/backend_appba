@@ -63,11 +63,25 @@ class EmpleadoController extends Controller
         // dd($empleado);
         // $empleado->with("departamento");
         // $empleado->departamento = Departamentos::find($empleado->departamento);
-        $empleado = $empleado->with("departamento")->get();
 
         $data = [
             'message' => "Detalles del empleado",
-            'empleado' => $empleado,
+            'empleado' => $empleado->with("departamento")->get()
+            ,
+        ];
+        return response()->json($data);
+    }
+
+    public function getEmpleadoFromDepartamento(Departamentos $departamento)
+    {
+        // dd($empleado);
+        // $empleado->with("departamento");
+        // $empleado->departamento = Departamentos::find($empleado->departamento);
+        $empleados = Empleado::where("departamento", $departamento->id)->get();
+
+        $data = [
+            'message' => "Empleados del departamento",
+            'empleado' => $empleados,
         ];
         return response()->json($data);
     }

@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Empleado;
 use App\Models\Marcaje;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class MarcajeController extends Controller
 {
-     /**
+    /**
      * Display a listing of the resource.
      */
     public function index()
@@ -20,9 +22,22 @@ class MarcajeController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        $marcaje = new Marcaje;
+        $marcaje->tipo = $request->tipo;
+        $marcaje->fecha_hora = $request->fecha_hora;
+        $marcaje->empleado = $request->empleado;
+
+
+        $marcaje->save();
+
+        $data = [
+            'message' => "Marcaje creado con exito",
+            'marcaje' => $marcaje,
+        ];
+
+        return response()->json($data);
     }
 
     /**
@@ -31,19 +46,62 @@ class MarcajeController extends Controller
     public function store(Request $request)
     {
         //
-        $marcaje = new Marcaje;
-        $marcaje->tipo = $request->tipo;
-        $marcaje->fecha_hora = $request->fecha_hora;
-        $marcaje->empleado = $request->empleado;      
-        
-       
-        $marcaje->save();
+    }
+
+    public function getMarcajesFromEmpleado(Empleado $empleado)
+    {
+
+
+        $marcajes = Marcaje::where("empleado", $empleado->id)->get();
 
         $data = [
             'message' => "Marcaje creado con exito",
-            'marcaje' => $marcaje,
+            'marcaje' => $marcajes,
         ];
 
+        return response()->json($data);
+    }
+
+    public function getLastMarcajeFromEmpleado(Empleado $empleado)
+    {
+
+
+        $marcajes = Marcaje::where("empleado", $empleado->id)->orderBy("fecha_hora", "desc")->first();
+
+        $data = [
+            'message' => "Ultimo marcaje",
+            'marcaje' => $marcajes,
+        ];
+
+        return response()->json($data);
+    }
+
+    public function getHoursMonth(Empleado $empleado)
+    {
+        $entradas = Marcaje::whereRaw("empleado = $empleado->id and tipo = 'ENTRADA'")
+            ->whereYear('fecha_hora', Carbon::now()->year)
+            ->whereMonth('fecha_hora', Carbon::now()->month)
+            ->pluck("fecha_hora")->toArray();
+        $salidas = Marcaje::whereRaw("empleado = $empleado->id and tipo = 'SALIDA'")
+            ->whereYear('fecha_hora', Carbon::now()->year)
+            ->whereMonth('fecha_hora', Carbon::now()->month)
+            ->pluck("fecha_hora")->toArray();
+        $horas = 0;
+        foreach ($entradas as $key => $entrada) {
+            $horaIni = new Carbon($entrada);
+            if (array_key_exists($key, $salidas)) {
+                $horafin = new Carbon($salidas[$key]);
+            } else {
+                $horafin = Carbon::now();
+            }
+            $horas += $horaIni->diffInHours($horafin);
+        }
+
+        $data = [
+            'message' => "Horas trabajadas este mes",
+            'horas' => $horas,
+        ];
+       
         return response()->json($data);
     }
 
@@ -71,7 +129,7 @@ class MarcajeController extends Controller
         //
         $marcaje->tipo = $request->tipo;
         $marcaje->fecha_hora = $request->fecha_hora;
-        $marcaje->empleado = $request->empleado;  
+        $marcaje->empleado = $request->empleado;
 
         $marcaje->save();
 
