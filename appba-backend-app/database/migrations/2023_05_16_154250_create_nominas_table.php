@@ -16,6 +16,7 @@ return new class extends Migration
             $table->id("id");
             $table->dateTime('fecha');
             $table->unsignedBigInteger('empleado');
+            $table->string('path');
             // $table->foreign('empleado')->references('id')->on('empleados');
             $table->timestamps();
         });

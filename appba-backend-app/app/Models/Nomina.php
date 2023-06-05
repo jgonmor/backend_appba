@@ -12,8 +12,9 @@ class Nomina extends Model
     protected $table = "nominas";
 
     protected $fillable = [
-        'fecha_nom',
-        'dni_emp',
+        'fecha',
+        'empleado',
+        "path",
         "created_at", 
         "updated_at", 
         "deleted_at"

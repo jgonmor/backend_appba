@@ -5,6 +5,7 @@ use App\Http\Controllers\EmpleadoController;
 use App\Http\Controllers\MarcajeController;
 use App\Http\Controllers\DepartamentosController;
 use App\Http\Controllers\LocationsController;
+use App\Http\Controllers\NominaController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -47,6 +48,9 @@ Route::get('/departamentos/{departamentos}', [DepartamentosController::class, 's
 Route::put('/departamentos', [DepartamentosController::class, 'update']);
 Route::delete('/departamentos/{departamento}', [DepartamentosController::class, 'destroy']);
 
+
+Route::post('/empleados/uploadPayslip', [NominaController::class, 'store']);
+Route::get('/empleados/downloadPayslip/{dni}/{name}', [NominaController::class, 'downloadPayslip']);
 
 Route::get('/locations', [LocationsController::class, 'index']);
 Route::post('/locations', [LocationsController::class, 'store']);
