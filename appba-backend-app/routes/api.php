@@ -51,6 +51,7 @@ Route::delete('/departamentos/{departamento}', [DepartamentosController::class, 
 
 Route::post('/empleados/uploadPayslip', [NominaController::class, 'store']);
 Route::get('/empleados/downloadPayslip/{dni}/{name}', [NominaController::class, 'downloadPayslip']);
+Route::get('/empleados/payslip/{empleado}', [NominaController::class, 'getPayslipFromEmployee']);
 
 Route::get('/locations', [LocationsController::class, 'index']);
 Route::post('/locations', [LocationsController::class, 'store']);

@@ -78,6 +78,20 @@ class NominaController extends Controller
 
     }
 
+    public function getPayslipFromEmployee(Empleado $empleado)
+    {
+
+
+        $nominas = Nomina::where("empleado", $empleado->id)->get();
+
+        $data = [
+            'message' => "Marcaje creado con exito",
+            'nomina' => $nominas,
+        ];
+
+        return response()->json($data);
+    }
+
     /**
      * Display the specified resource.
      */

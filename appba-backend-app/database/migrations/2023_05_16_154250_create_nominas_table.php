@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('nominas', function (Blueprint $table) {
             $table->softDeletes();
             $table->id("id");
-            $table->dateTime('fecha');
+            $table->date('fecha');
             $table->unsignedBigInteger('empleado');
             $table->string('path');
             // $table->foreign('empleado')->references('id')->on('empleados');
