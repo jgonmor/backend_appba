@@ -31,31 +31,39 @@ class NominaController extends Controller
      */
     public function store(Request $request)
     {
-        if($request->hasFile("file")){
+        if ($request->hasFile("file")) {
             $file = $request->file("file");
             $empleado = $request["empleado"];
-            $dni = Empleado::where("id", $empleado)->first()->dni;
-            $date = Carbon::now()->toDateString();
-             
-            $extension = $file->getClientOriginalExtension();
-            $fileName = $date.".".$extension;
 
-            $file->move(public_path("files/payslips/$dni/"), $fileName);
+            if ($file->getClientMimeType() === "application/pdf") {
+                $dni = Empleado::where("id", $empleado)->first()->dni;
+                $date = Carbon::now()->toDateString();
+
+                $extension = $file->getClientOriginalExtension();
+                $fileName = $date . "." . $extension;
+
+                $file->move(public_path("files/payslips/$dni/"), $fileName);
 
 
-            $nomina = new Nomina([
-                'fecha' => $date,
-                'empleado' => $empleado,
-                "path" =>$fileName
-            ]);
+                $nomina = new Nomina([
+                    'fecha' => $date,
+                    'empleado' => $empleado,
+                    "path" => $fileName
+                ]);
 
-            $nomina->save();
+                $nomina->save();
 
-            $data = [
-                'message' => "Nomina subida con exito",
-                'nomina' => "$dni/$fileName",
-            ];
-        }else{
+                $data = [
+                    'message' => "Nomina subida con exito",
+                    'nomina' => "$dni/$fileName",
+                ];
+            }else{
+                $data = [
+                    'message' => "Error al subir la nomina: El archivo no es un pdf"
+                ];
+                return response()->json($data, 415);
+            }
+        } else {
             $data = [
                 'message' => "Error al subir la nomina"
             ];
@@ -64,18 +72,18 @@ class NominaController extends Controller
         return response()->json($data);
     }
 
-    public function downloadPayslip($dni, $name){
-            // $path = "files/payslips/$dni/";
-            
-            $path = public_path("files/payslips/$dni/");
-            if(file_exists($path.$name)){
-                return response()->download($path.$name);
-            }
-            $data = [
-                'message' => "Esa nomina no existe"
-            ];
-            return response()->json($data);
+    public function downloadPayslip($dni, $name)
+    {
+        // $path = "files/payslips/$dni/";
 
+        $path = public_path("files/payslips/$dni/");
+        if (file_exists($path . $name)) {
+            return response()->download($path . $name);
+        }
+        $data = [
+            'message' => "Esa nomina no existe"
+        ];
+        return response()->json($data);
     }
 
     public function getPayslipFromEmployee(Empleado $empleado)
@@ -85,7 +93,7 @@ class NominaController extends Controller
         $nominas = Nomina::where("empleado", $empleado->id)->get();
 
         $data = [
-            'message' => "Marcaje creado con exito",
+            'message' => "Marcajes de " . $empleado->dni,
             'nomina' => $nominas,
         ];
 

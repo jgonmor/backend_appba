@@ -6,6 +6,8 @@ use App\Http\Controllers\MarcajeController;
 use App\Http\Controllers\DepartamentosController;
 use App\Http\Controllers\LocationsController;
 use App\Http\Controllers\NominaController;
+use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\SolicitudController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -60,4 +62,10 @@ Route::get('/locations/byCategory/{category}', [LocationsController::class, 'byC
 Route::put('/locations', [LocationsController::class, 'update']);
 Route::delete('/locations/{locations}', [LocationsController::class, 'destroy']);
 
+Route::get('/notifications', [NotificationController::class, 'index']);
+Route::post('/notifications', [NotificationController::class, 'create']);
 
+Route::get('/solicitudes/fromDepartamento/{departamento}', [SolicitudController::class, 'getSolicitudesFromDepartamento']);
+Route::get('/solicitudes/fromEmpleado/{empleado}', [SolicitudController::class, 'getSolicitudesFromEmployee']);
+Route::get('/solicitudes/rrhh', [SolicitudController::class, 'getSolicitudesPendienteRRHH']);
+Route::post('/solicitudes', [SolicitudController::class, 'create']);

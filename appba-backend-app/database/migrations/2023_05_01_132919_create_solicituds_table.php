@@ -19,8 +19,7 @@ return new class extends Migration
             $table->dateTime('fecha_hora_inicio');
             $table->dateTime('fecha_hora_fin');
             $table->enum("tipo", ["ASUNTOS_PROPIOS", "VACACIONES", "HORAS_COMPENSATORIAS"]);
-            $table->enum("estado_jefe", ["EN_ESPERA", "ACEPTADA", "RECHAZADA"]);
-            $table->enum("estado_rrhh", ["EN_ESPERA", "ACEPTADA", "RECHAZADA"]);
+            $table->enum("estado", ["EN_ESPERA_JEFE", "EN_ESPERA_RRHH", "ACEPTADA", "RECHAZADA"]);
             $table->timestamps();
         });
     }
