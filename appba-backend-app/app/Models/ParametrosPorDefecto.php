@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Parametros_por_defecto extends Model
+class ParametrosPorDefecto extends Model
 {
     use HasFactory;
 

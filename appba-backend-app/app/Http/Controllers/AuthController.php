@@ -22,7 +22,7 @@ class AuthController extends Controller
                 "empleado" => $employee,       
             ];
             $data = [
-                "message" => "ha iniciado sesion correctamente",
+                "message" => "Ha iniciado sesion correctamente",
                 'data' => $response,
             ];
            

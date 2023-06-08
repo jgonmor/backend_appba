@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Ausencia_Empleado;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\EmpleadoController;
 use App\Http\Controllers\MarcajeController;
@@ -7,7 +8,9 @@ use App\Http\Controllers\DepartamentosController;
 use App\Http\Controllers\LocationsController;
 use App\Http\Controllers\NominaController;
 use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\ParametroPorDefectoController;
 use App\Http\Controllers\SolicitudController;
+use App\Http\Controllers\AusenciaEmpleadoController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -41,8 +44,12 @@ Route::get('/marcaje/{marcaje}', [MarcajeController::class, 'show']);
 Route::get('/marcaje/fromEmpleado/{empleado}', [MarcajeController::class, 'getMarcajesFromEmpleado']);
 Route::get('/marcaje/fromEmpleado/{empleado}/last', [MarcajeController::class, 'getLastMarcajeFromEmpleado']);
 Route::get('/marcaje/getHours/{empleado}', [MarcajeController::class, 'getHoursMonth']);
+
+Route::get('/marcaje/getHoursDepartamento/{departamento}', [MarcajeController::class, 'getHoursMonthDepartment']);
 Route::put('/marcaje/{marcaje}', [MarcajeController::class, 'update']);
 Route::delete('/marcaje/{marcaje}', [MarcajeController::class, 'destroy']);
+
+Route::get('/totalHours', [MarcajeController::class, 'getHoursTotalMonth']);
 
 Route::get('/departamentos', [DepartamentosController::class, 'index']);
 Route::post('/departamentos', [DepartamentosController::class, 'store']);
@@ -69,3 +76,9 @@ Route::get('/solicitudes/fromDepartamento/{departamento}', [SolicitudController:
 Route::get('/solicitudes/fromEmpleado/{empleado}', [SolicitudController::class, 'getSolicitudesFromEmployee']);
 Route::get('/solicitudes/rrhh', [SolicitudController::class, 'getSolicitudesPendienteRRHH']);
 Route::post('/solicitudes', [SolicitudController::class, 'create']);
+Route::patch('/solicitudes', [SolicitudController::class, 'update']);
+
+Route::get('/parametros', [ParametroPorDefectoController::class, 'index']);
+Route::get('/horasRestantes/{id}', [AusenciaEmpleadoController::class, 'getHorasRestantes']);
+Route::get('/vacacionesRestantes/{id}', [AusenciaEmpleadoController::class, 'getVacacionesRestantes']);
+Route::get('/diasRestantes/{id}', [AusenciaEmpleadoController::class, 'getDiasRestantes']);

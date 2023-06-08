@@ -13,7 +13,7 @@ class SolicitudController extends Controller
     public function getSolicitudesFromDepartamento(Departamentos $departamento)
     {
         $empleados = Empleado::where("departamento", $departamento->id)->pluck("id");
-        $solicitudes = Solicitud::whereIn("empleado", $empleados)->with("empleado")->get();
+        $solicitudes = Solicitud::where("estado", "EN_ESPERA_JEFE")->whereIn("empleado", $empleados)->with("empleado")->get();
 
         $data = [
             'message' => "Solicitudes del departamento $departamento->nombre",
@@ -64,6 +64,21 @@ class SolicitudController extends Controller
             'message' => "Solicitudes del empleado",
             'data' => $solicitudes,
         ];
+        return response()->json($data);
+    }
+
+    public function update(Request $request)
+    {
+        //
+       
+        $solicitud = Solicitud::find($request->id)->update($request);
+        $solicitud->save();
+
+        $data = [
+            'message' => "Solicitud actualizada con exito",
+            'empleado' => $solicitud,
+        ];
+
         return response()->json($data);
     }
 

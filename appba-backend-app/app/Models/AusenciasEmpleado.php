@@ -5,19 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Ausencia_Empleado extends Model
+class AusenciasEmpleado extends Model
 {
     use HasFactory;
 
     protected $table = "ausencia__empleados";
 
     protected $fillable = [
-        'vacaciones_totales',
-        'vacaciones_cogidas',
-        'asuntos_propios_totales',
-        'asuntos_propios_cogidas',
-        'horas_compensatorias_totales',
-        'horas_compensatorias_cogidas',
+        'vacaciones_restantes',
+        'asuntos_propios_restantes',
+        'horas_compensatorias_restantes',
         "created_at", 
         "updated_at", 
         "deleted_at"
