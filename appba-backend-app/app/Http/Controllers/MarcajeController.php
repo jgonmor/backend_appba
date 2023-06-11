@@ -55,7 +55,7 @@ class MarcajeController extends Controller
     {
 
 
-        $marcajes = Marcaje::where("empleado", $empleado->id)->get();
+        $marcajes = Marcaje::where("empleado", $empleado->id)->orderBy("fecha_hora", "desc")->get();
 
         $data = [
             'message' => "Marcaje creado con exito",
@@ -67,7 +67,6 @@ class MarcajeController extends Controller
 
     public function getLastMarcajeFromEmpleado(Empleado $empleado)
     {
-
 
         $marcajes = Marcaje::where("empleado", $empleado->id)->orderBy("fecha_hora", "desc")->first();
 
@@ -100,10 +99,50 @@ class MarcajeController extends Controller
             $horas += $horaIni->diffInHours($horafin);
         }
 
+        $mes = Carbon::now()->month;
+        $year = Carbon::now()->year;
+        $diasMes = Carbon::now()->daysInMonth;
+        $inicio = Carbon::createFromDate($year, $mes, 1);
+        $fin = Carbon::createFromDate($year, $mes, $diasMes);
+
+        $period = CarbonPeriod::create($inicio, $fin);
+
+        $url = "https://calendarific.com/api/v2/holidays?api_key=b8f94c51e3bfdb7425495d615968b5d49e5a87cd&country=ES&year=$year&month=$mes&type=national";
+
+        $opciones = array(
+            'http' =>
+            array(
+                'method' => 'GET',
+                'max_redirects' => '0',
+                'ignore_errors' => '1'
+            )
+        );
+        $contexto = stream_context_create($opciones);
+        $flujo = fopen($url, 'r', false, $contexto);
+
+
+        $festivos = json_decode(stream_get_contents($flujo), true);
+        fclose($flujo);
+
+        $diasFestivos = [];
+        foreach ($festivos["response"]["holidays"] as $i => $festivo) {
+            $diasFestivos[$i] = $festivo["date"]["iso"];
+        }
+        // dd($xd);
+        $dias = [];
+        foreach ($period as $i => $date) {
+            if ($date->dayOfWeek <= 5 && $date->dayOfWeek > 0 && !in_array($date->format("Y-m-d"), $diasFestivos)) {
+                $dias[$i] = $date->format("Y-m-d");
+            }
+        }
+
+
+        $horasMes = count($dias) * 8;
 
         $data = [
             'message' => "Horas trabajadas este mes",
             'horas' => $horas,
+            'horasMes' =>$horasMes
         ];
 
         return response()->json($data);
