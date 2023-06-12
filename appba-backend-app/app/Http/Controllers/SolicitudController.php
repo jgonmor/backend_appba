@@ -69,14 +69,13 @@ class SolicitudController extends Controller
 
     public function update(Request $request)
     {
-        //
+        // dd($request->id);
        
-        $solicitud = Solicitud::find($request->id)->update($request);
-        $solicitud->save();
-
+        Solicitud::where("id", $request->id)->update($request->toArray());
+        $solicitud = Solicitud::where("id", $request->id)->first();
         $data = [
             'message' => "Solicitud actualizada con exito",
-            'empleado' => $solicitud,
+            'data' => $solicitud,
         ];
 
         return response()->json($data);

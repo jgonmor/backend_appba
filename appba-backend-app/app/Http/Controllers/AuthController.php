@@ -15,7 +15,7 @@ class AuthController extends Controller
         $user = User::where("DNI", $request->DNI)->first();
         if ($user && $user->password === $request->password) {
             $token = $user->createToken("Login token")->plainTextToken;
-            $employee = Empleado::find($user->id)->with("departamento")->first();
+            $employee = Empleado::where("id", $user->id)->with("departamento")->first();
             $employee->rol = $user->rol;
             $response = [
                 "token" => $token,
