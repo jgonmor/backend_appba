@@ -18,7 +18,7 @@ class MarcajeController extends Controller
     public function index()
     {
         //
-        $marcajes = Marcaje::all();
+        $marcajes = Marcaje::all()->orderBy("fecha_hora", "desc");
         return response()->json($marcajes);
     }
 

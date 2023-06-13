@@ -58,7 +58,7 @@ class SolicitudController extends Controller
     public function getSolicitudesFromEmployee($empleado)
     {
 
-        $solicitudes = Solicitud::where("empleado", $empleado)->get();
+        $solicitudes = Solicitud::where("empleado", $empleado)->orderBy("fecha_hora", "desc")->get();
 
         $data = [
             'message' => "Solicitudes del empleado",

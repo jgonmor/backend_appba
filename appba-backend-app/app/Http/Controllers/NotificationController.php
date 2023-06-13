@@ -16,7 +16,7 @@ class NotificationController extends Controller
     public function index()
     {
         //
-        $notification = Notification::all();
+        $notification = Notification::orderBy("fecha", "desc")->get();
         $data = [
             'message' => "Todas las notificaciones",
             'data' => $notification,
@@ -53,62 +53,6 @@ class NotificationController extends Controller
         //
     }
 
-    public function getMarcajesFromEmpleado(Empleado $empleado)
-    {
-
-
-        $marcajes = Marcaje::where("empleado", $empleado->id)->get();
-
-        $data = [
-            'message' => "Marcaje creado con exito",
-            'marcaje' => $marcajes,
-        ];
-
-        return response()->json($data);
-    }
-
-    public function getLastMarcajeFromEmpleado(Empleado $empleado)
-    {
-
-
-        $marcajes = Marcaje::where("empleado", $empleado->id)->orderBy("fecha_hora", "desc")->first();
-
-        $data = [
-            'message' => "Ultimo marcaje",
-            'marcaje' => $marcajes,
-        ];
-
-        return response()->json($data);
-    }
-
-    public function getHoursMonth(Empleado $empleado)
-    {
-        $entradas = Marcaje::whereRaw("empleado = $empleado->id and tipo = 'ENTRADA'")
-            ->whereYear('fecha_hora', Carbon::now()->year)
-            ->whereMonth('fecha_hora', Carbon::now()->month)
-            ->pluck("fecha_hora")->toArray();
-        $salidas = Marcaje::whereRaw("empleado = $empleado->id and tipo = 'SALIDA'")
-            ->whereYear('fecha_hora', Carbon::now()->year)
-            ->whereMonth('fecha_hora', Carbon::now()->month)
-            ->pluck("fecha_hora")->toArray();
-        $horas = 0;
-        foreach ($entradas as $key => $entrada) {
-            $horaIni = new Carbon($entrada);
-            if (array_key_exists($key, $salidas)) {
-                $horafin = new Carbon($salidas[$key]);
-            } else {
-                $horafin = Carbon::now();
-            }
-            $horas += $horaIni->diffInHours($horafin);
-        }
-
-        $data = [
-            'message' => "Horas trabajadas este mes",
-            'horas' => $horas,
-        ];
-       
-        return response()->json($data);
-    }
 
     /**
      * Display the specified resource.
@@ -126,25 +70,7 @@ class NotificationController extends Controller
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Marcaje $marcaje)
-    {
-        //
-        $marcaje->tipo = $request->tipo;
-        $marcaje->fecha_hora = $request->fecha_hora;
-        $marcaje->empleado = $request->empleado;
-
-        $marcaje->save();
-
-        $data = [
-            'message' => "Marcaje actualizado con exito",
-            'marcaje' => $marcaje,
-        ];
-
-        return response()->json($data);
-    }
+  
 
     /**
      * Remove the specified resource from storage.

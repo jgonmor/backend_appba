@@ -90,7 +90,7 @@ class NominaController extends Controller
     {
 
 
-        $nominas = Nomina::where("empleado", $empleado->id)->get();
+        $nominas = Nomina::where("empleado", $empleado->id)->orderBy("fecha", "desc")->get();
 
         $data = [
             'message' => "Marcajes de " . $empleado->dni,
